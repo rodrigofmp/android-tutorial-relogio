@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RelogioDeCabeceira.iml" filepath="$PROJECT_DIR$/RelogioDeCabeceira.iml" />
+      <module fileurl="file://C:\GitHub\android-tutorial-relogio\RelogioDeCabeceira\RelogioDeCabeceira.iml" filepath="C:\GitHub\android-tutorial-relogio\RelogioDeCabeceira\RelogioDeCabeceira.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\GitHub\android-tutorial-relogio\RelogioDeCabeceira\app\app.iml" filepath="C:\GitHub\android-tutorial-relogio\RelogioDeCabeceira\app\app.iml" />
     </modules>
   </component>
 </project>
