@@ -1,9 +1,15 @@
 package com.devmasterteam.relogiodecabeceira;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -16,6 +22,14 @@ public class MainActivity extends AppCompatActivity {
     private Runnable mRunnable;
     private boolean mRunnableStopped = false;
 
+    private BroadcastReceiver mBatteryReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+            mViewHolder.mTextBatteryLevel.setText(level + "%");
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
         this.mViewHolder.mTextHourMinute = this.findViewById(R.id.text_hour_minute);
         this.mViewHolder.mTextSeconds = this.findViewById(R.id.text_seconds);
         this.mViewHolder.mCheckBattery = this.findViewById(R.id.check_battery);
+        this.mViewHolder.mTextBatteryLevel = this.findViewById(R.id.text_battery_level);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        this.registerReceiver(this.mBatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 
     @Override
@@ -69,5 +88,6 @@ public class MainActivity extends AppCompatActivity {
         TextView mTextHourMinute;
         TextView mTextSeconds;
         CheckBox mCheckBattery;
+        TextView mTextBatteryLevel;
     }
 }

@@ -33,9 +33,17 @@
 
         <CheckBox
             android:id="@+id/check_battery"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/battery_level"/>
+
+        <TextView
+            android:id="@+id/text_battery_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="100"/>
+
     </LinearLayout>
 
 </RelativeLayout>
