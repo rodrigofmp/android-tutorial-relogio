@@ -9,18 +9,20 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ViewHolder mViewHolder = new ViewHolder();
     private Handler mHandler = new Handler();
     private Runnable mRunnable;
     private boolean mRunnableStopped = false;
+    private boolean mIsBatteryOn = true;
 
     private BroadcastReceiver mBatteryReceiver = new BroadcastReceiver() {
         @Override
@@ -42,8 +44,13 @@ public class MainActivity extends AppCompatActivity {
         this.mViewHolder.mTextBatteryLevel = this.findViewById(R.id.text_battery_level);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         this.registerReceiver(this.mBatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
+        this.mViewHolder.mCheckBattery.setChecked(true);
+
+        this.setListener();
     }
 
     @Override
@@ -57,6 +64,28 @@ public class MainActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         this.mRunnableStopped = true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.check_battery) {
+            this.toggleCheckBattery();
+        }
+    }
+
+    private void toggleCheckBattery() {
+        if (this.mIsBatteryOn) {
+            this.mIsBatteryOn = false;
+            this.mViewHolder.mTextBatteryLevel.setVisibility(View.GONE);
+        }
+        else {
+            this.mIsBatteryOn = true;
+            this.mViewHolder.mTextBatteryLevel.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setListener() {
+        this.mViewHolder.mCheckBattery.setOnClickListener(this);
     }
 
     private void startBedside() {
